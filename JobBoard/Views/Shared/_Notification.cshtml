@@ -1,0 +1,30 @@
+﻿
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success text-center" role="alert">
+        <strong>@TempData["Success"]</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        <strong>Message: @TempData["Error"]</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-secondary text-center" role="alert">
+        <strong>@ViewBag.Message</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}

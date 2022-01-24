@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    @if (User.IsInRole(RoleEnum.JobSeeker.ToString()))
+    {
+        <partial name="_JobSeekerPage" />
+    }
+
+    @if (User.IsInRole(RoleEnum.Recruiter.ToString()))
+    {
+        <partial name="_RcruiterPage" />
+    }
+
+}
+else
+{
+    <partial name="_UnAuthorizedPaage" />
+}

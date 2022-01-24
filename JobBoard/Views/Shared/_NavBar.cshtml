@@ -1,0 +1,160 @@
+﻿  <!-- NAVBAR -->
+@using JobBoard.Enum
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <header class="site-navbar mt-3 fixed-top bg-dark">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="site-logo col-6"><a asp-action="Index" asp-controller="Home">JobBoard</a></div>
+
+                <nav class="mx-auto site-navigation">
+                    <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+
+                        @if (User.IsInRole(RoleEnum.JobSeeker.ToString()))
+                        {
+                            <li><a asp-action="Index" asp-controller="Home" class="nav-link">Home</a></li>
+                            <li><a asp-action="Index" asp-controller="Home">Job Listings</a></li>
+                        }
+
+                        @if (User.IsInRole(RoleEnum.Recruiter.ToString()))
+                        {
+                            <li><a asp-action="Index" asp-controller="Home" class="nav-link">Job Applications</a></li>
+                            <li> <a asp-controller="Job" asp-action="Create" class="nav-link"><span class="mr-2 icon-add"></span>Post a Job</a></li>
+                        }
+
+                        <li><a asp-action="About" asp-controller="Home">About</a></li>
+                        <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+
+
+                        <li class="has-children d-lg-none">
+                            <a><span class="mr-3 icon-user"></span>Profile</a>
+                            <ul class="dropdown">
+                                <li><a asp-action="RegsiterJobSeeker" asp-controller="Account">My Profile</a></li>
+                                <li><a asp-action="RegsiterRecruiter" asp-controller="Account">Change Password</a></li>
+                                @if (User.IsInRole(RoleEnum.JobSeeker.ToString()))
+                                {
+                                    <li><a asp-action="RegsiterJobSeeker" asp-controller="Account">My Applications</a></li>
+                                    <li><a asp-action="RegsiterJobSeeker" asp-controller="Account">Saved Jobs</a></li>
+                                }
+
+                                @*@if (User.IsInRole(RoleEnum.Recruiter.ToString()))
+                                    {
+                                        <li> <a asp-controller="Job" asp-action="Create" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a></li>
+                                    }*@
+                                <li><a asp-action="Delete" asp-controller="Account">Delete Account</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="d-lg-none">
+                            <form asp-action="Logout" asp-controller="Account">
+                                <button type="submit" class="btn btn-outline-secondary">sign out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                    <div class="ml-auto">
+
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle btn-md d-none d-lg-inline-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="mr-3 icon-user"></span>Profile
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" asp-action="RegsiterJobSeeker" asp-controller="Account">My Profile</a>
+                                    <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Change Password</a>
+                                    @if (User.IsInRole(RoleEnum.JobSeeker.ToString()))
+                                    {
+                                        <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">My Applications</a>
+                                        <a class="dropdown-item" asp-action="RegsiterJobSeeker" asp-controller="Account">Saved Jobs</a>
+                                    }
+
+                                    @if (User.IsInRole(RoleEnum.Recruiter.ToString()))
+                                    {
+                                        <a class="dropdown-item" asp-controller="Job" asp-action="Create">Post a Job</a>
+                                    }
+
+                                    <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Delete Account</a>
+                                    @*<a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Not you?? sign out</a>*@
+                                    <hr class="dropdown-divider"/>
+                                    <form asp-action="Logout" asp-controller="Account" >
+                                        <button type="submit" class="btn btn-outline-danger dropdown-item">not you?.. sign out</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <form asp-controller="Account" asp-action="Logout" class="d-lg-inline-block d-none">
+                            <button type="submit" class="btn btn-danger border-width-2  btn-md">Sign out</button>
+                        </form>
+
+
+                        @*<a class="btn btn-danger border-width-2 d-none d-lg-inline-block btn-md" href="#"><span class="mr-2 icon-lock_outline"></span>sign out</a>*@
+
+                    </div>
+                    <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+                </div>
+            </div>
+        </div>
+
+    </header>
+}
+else
+{
+    <header class="site-navbar mt-3">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="site-logo col-6"><a asp-action="Index" asp-controller="Home">JobBoard</a></div>
+                <nav class="mx-auto site-navigation">
+                    <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                        <li><a asp-action="Index" asp-controller="Home" class="nav-link">Home</a></li>
+                        <li><a asp-action="About" asp-controller="Home">About</a></li>
+                        <li><a asp-action="Index" asp-controller="Home">Job Listings</a></li>
+                        <li><a asp-action="Contact" asp-controller="Home"> Contact </a></li>
+                        <li class="has-children d-lg-none">
+                            <a href="services.html"> Sign Up</a>
+                            <ul class="dropdown">
+                                <li><a asp-action="RegsiterJobSeeker" asp-controller="Account">Job Seeker</a></li>
+                                <li>
+                                    <a asp-action="RegsiterRecruiter" asp-controller="Account">
+                                        Recruiter
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="d-lg-none">
+                            <a asp-action="Authentication" asp-controller="Account">Log In</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                    <div class="ml-auto">
+
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle btn-md d-none d-lg-inline-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    Sign Up
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" asp-action="RegsiterJobSeeker" asp-controller="Account">Job Seeker</a>
+                                    <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Recruiter</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<a href="post-job.html" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>*@
+                        <a class="btn btn-primary border-width-2 d-none d-lg-inline-block btn-md" asp-action="Authentication" asp-controller="Account"><span class="mr-2 icon-lock_outline"></span>Log In</a>
+
+                    </div>
+                    <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+                </div>
+            </div>
+        </div>
+
+    </header>
+}
+
+

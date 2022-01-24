@@ -1,0 +1,176 @@
+﻿@{
+    ViewData["Title"] = "Job Seeker Registration";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+@model RegistrationViewModel
+
+    <style>
+        #StandInFile {
+            background-color: indigo;
+            color: white;
+            padding: 0.5rem;
+            font-family: sans-serif;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        #file-chosen {
+            margin-left: 0.3rem;
+            font-family: sans-serif;
+        }
+    </style>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url(../../../Styles/images/hero_1.jpg)" id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Sign Up</h1>
+                    <div class="custom-breadcrumbs">
+                        <a asp-action="Index" asp-controller="Home">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Regsitration</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section">
+        <div class="container">
+
+            @*@if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                <strong>@TempData["Error"]</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }*@
+
+            <partial name="_Notification" />
+
+            <div class="row">
+                <div class="col-lg-6 mb-5">
+                    <h4 class="mb-1">Want to hear about the latest jobs and apply for new roles in an instant? &#13; Sign up here</h4>
+                    <form asp-action="CreateJobSeeker" asp-controller="Account" method="post" class="p-4 border rounded">
+
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="fname">First name:</label>
+                                <input type="text" id="fname" class="form-control" placeholder="First name..." asp-for="Firstname">
+                                <span asp-validation-for="Firstname" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="sname">Surname:</label>
+                                <input type="text" id="sname" class="form-control" placeholder="Surname here..." asp-for="Surname">
+                                <span asp-validation-for="Surname" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        @*<div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Company name:</label>
+                            <input type="text" id="fname" class="form-control" placeholder="Company name here..." asp-for="CompanyName">
+                        </div>
+                    </div>*@
+
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="email">Email:</label>
+                                <input type="email" id="email" class="form-control" placeholder="example: abcdef@gmail.com" asp-for="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="phone">Phone number: (optional)</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="phone number here..." asp-for="PhoneNumber" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="uploadfile">CV:</label>
+                                <input type="file" id="uploadfile" class="form-control-file" hidden asp-for="Files">
+                                <!-- custom upload button -->
+                                <label for="uploadfile" id="StandInFile">Choose File</label><span id="file-chosen">No file chosen</span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="password">Password</label>
+                                <input type="password" id="password" class="form-control" placeholder="Password here" asp-for="Password">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group mb-4">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="cpassword">Confirm Password</label>
+                                <input type="password" id="cpassword" class="form-control" placeholder="Confirm Password here" asp-for="ConfirmPassword">
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="submit" value="Sign Up" class="btn px-4 btn-info text-white">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                @*<div class="col-lg-6">
+                <h2 class="mb-4">Log In To JobBoard</h2>
+                <form asp-action="Login" asp-controller="Account" method="post" class="p-4 border rounded">
+
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Email</label>
+                            <input type="text" id="fname" class="form-control" placeholder="Email address">
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Password</label>
+                            <input type="password" id="fname" class="form-control" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" value="Log In" class="btn px-4 btn-info text-white">
+                        </div>
+                    </div>
+
+                </form>
+            </div>*@
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        const actualBtn = document.getElementById('uploadfile');
+
+        const fileChosen = document.getElementById('file-chosen');
+
+        actualBtn.addEventListener('change', function () {
+            fileChosen.textContent = this.files[0].name
+        })
+    </script>
+
+    <script type="text/javascript">
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).fadeOut(500, function () {
+                $(this).remove();
+            });
+        }, 5000);
+    </script>

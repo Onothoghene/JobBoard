@@ -38,6 +38,14 @@ namespace JobBoard.Handlers
             CreateMap<LoginViewModel, LoginModel>();
 
             CreateMap<UserProfile, UserOM>();
+
+            CreateMap<UserOM, UserViewModel>();
+
+            CreateMap<UserOM, UserModel>();
+
+            CreateMap<UserModel, UserIM>();
+
+            CreateMap<UserIM, UserProfile>();
         }
     }
 

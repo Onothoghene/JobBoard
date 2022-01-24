@@ -1,57 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using JobBoard.Logic.Interfaces;
+using JobBoard.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobBoard.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-        // GET: UserController
+        readonly IHttpContextAccessor _httpContext;
+        readonly IUser _user;
+        readonly IMapper _mapper;
+
+        public UserController(IHttpContextAccessor httpContext, IUser user, IMapper mapper) : base(httpContext)
+        {
+            _httpContext = httpContext;
+            _user = user;
+            _mapper = mapper;
+        }
+
         public ActionResult Index()
         {
-            return View();
-        }
-
-        // GET: UserController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UserController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UserController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
+            var data = GetUserById(UserId);
+            return View(data);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit( IFormCollection collection)
         {
             try
             {
@@ -63,25 +40,12 @@ namespace JobBoard.Controllers
             }
         }
 
-        // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public UserModel GetUserById(int Id)
         {
-            return View();
+            var data = _user.GetById(Id);
+            var response = _mapper.Map<UserModel>(data);
+            return response;
         }
 
-        // POST: UserController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

@@ -65,7 +65,7 @@
                                     <span class="mr-3 icon-user"></span>Profile
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" asp-action="RegsiterJobSeeker" asp-controller="Account">My Profile</a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="User">My Profile</a>
                                     <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Change Password</a>
                                     @if (User.IsInRole(RoleEnum.JobSeeker.ToString()))
                                     {
@@ -79,7 +79,6 @@
                                     }
 
                                     <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Delete Account</a>
-                                    @*<a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Not you?? sign out</a>*@
                                     <hr class="dropdown-divider"/>
                                     <form asp-action="Logout" asp-controller="Account" >
                                         <button type="submit" class="btn btn-outline-danger dropdown-item">not you?.. sign out</button>

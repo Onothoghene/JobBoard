@@ -257,7 +257,26 @@ namespace JobBoard.Controllers
             return View();
         }
 
+        [Route("user/manage/account")]
         public IActionResult Manage()
+        {
+            return View();
+        }
+
+        [Route("accaount/preferences")]
+        public IActionResult UserSettings()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult ChangePasword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAccount()
         {
             return View();
         }

@@ -66,7 +66,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" asp-action="Index" asp-controller="User">My Profile</a>
-                                    <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">Change Password</a>
+                                    <a class="dropdown-item" asp-action="Manage" asp-controller="Account">Change Password</a>
                                     @if (User.IsInRole(RoleEnum.JobSeeker.ToString()))
                                     {
                                         <a class="dropdown-item" asp-action="RegsiterRecruiter" asp-controller="Account">My Applications</a>

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using JobBoard.DTO.EdiModel;
 using JobBoard.DTO.OutputModel;
 using JobBoard.Enum;
 using JobBoard.Logic.Interfaces;
 using JobBoard.Models;
 using System;
 using System.Linq;
+using System.Transactions;
 
 namespace JobBoard.Logic
 {
@@ -82,6 +84,50 @@ namespace JobBoard.Logic
             catch (Exception)
             {
                 throw;
+            }
+
+        }
+
+        public RequestStatus Edit(UserEM model)
+        {
+            try
+            {
+                using (TransactionScope ts = new TransactionScope())
+                {
+                    var data = _jobBoardContext.UserProfile.Find(model.Id);
+
+                    if (data != null)
+                    {
+                        if (model.PhoneNumber != null)
+                            data.PhoneNumber = model.PhoneNumber;
+
+                        if (model.Firstname != null)
+                            data.Firstname = model.Firstname;
+
+                        if (model.Surname != null)
+                            data.Surname = model.Surname;
+
+                        if (model.Email != null)
+                            data.Email = model.Email;
+                        
+                        if (model.CompanyName != null)
+                            data.CompanyName = model.CompanyName;
+
+                        _jobBoardContext.SaveChanges();
+
+                        ts.Complete();
+                        return RequestStatus.Success;
+                    }
+                    else
+                    {
+                        return RequestStatus.NoEntryFound;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }

@@ -133,10 +133,11 @@ namespace JobBoard.Logic
                         var userProfile = new UserProfile
                         {
                             Firstname = model.Firstname,
-                            Surname = model.LastName,
+                            Surname = model.Surname,
                             PhoneNumber = model.PhoneNumber,
                             Email = model.Email,
                             DateAdded = DateTime.Now,
+                            CompanyName = model.CompanyName,
                         };
                         await _context.UserProfile.AddAsync(userProfile);
 

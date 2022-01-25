@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using JobBoard.DTO.EdiModel;
+using JobBoard.Enum;
 using JobBoard.Logic.Interfaces;
 using JobBoard.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -25,18 +27,36 @@ namespace JobBoard.Controllers
             return View(data);
         }
 
-        // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( IFormCollection collection)
+        public ActionResult Edit( UserModel model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    TempData["Error"] = "Please Input the Required Information(s)";
+                    return View("Index", model);
+                }
+                var resp = _mapper.Map<UserEM>(model);
+                var response = _user.Edit(resp);
+                if (response == RequestStatus.Success)
+                {
+                    TempData["Success"] = "Updated Successfully";
+                    return View("Index", model);
+                }
+                
+                if (response == RequestStatus.NoEntryFound)
+                {
+                    TempData["Error"] = "No Record Found For this user";
+                    return View("Index", model);
+                }
+
+                return View("Index", model);
             }
             catch
             {
-                return View();
+                return View("Index");
             }
         }
 

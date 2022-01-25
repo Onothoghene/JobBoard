@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using JobBoard.DTO;
+using JobBoard.DTO.EdiModel;
 using JobBoard.DTO.InputModel;
 using JobBoard.DTO.OutputModel;
 using JobBoard.Models;
@@ -46,6 +47,10 @@ namespace JobBoard.Handlers
             CreateMap<UserModel, UserIM>();
 
             CreateMap<UserIM, UserProfile>();
+
+            CreateMap<UserEM, UserProfile>();
+
+            CreateMap<UserModel, UserEM>();
         }
     }
 
